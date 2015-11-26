@@ -2,7 +2,7 @@
 <?php
 include('lib.php');
 if(isLogin()){
- header('location:home.php');
+    header('location:home.php');
 }
 
 

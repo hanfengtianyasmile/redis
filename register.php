@@ -37,7 +37,7 @@ $r->set('user:username:'.$username.':userid',$userid);
 
 //通过一个链表，维护50个表的最新的userid
 $r->lpush('newuserlink',$userid);
-$r->lrtim('newuserlink',0,49);
+$r->ltrim('newuserlink',0,49);
 
 
 

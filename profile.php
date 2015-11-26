@@ -21,7 +21,7 @@ if(!$prouid){
 }
 
 $isf = $r->sismember('following:'.$user['userid'],$prouid);
-var_dump($isf);
+
 $isfstatus = $isf ? '0' : '1';
 $isfword = $isf ? '取消关注': '关注ta';
 

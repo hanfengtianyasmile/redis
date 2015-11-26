@@ -14,19 +14,30 @@ if(($user = isLogin()) == false){
 $r = connredis();
 
 //取出自己发的和粉主推过来的信息
-$r->ltrim('recivepost:'.$user['userid'],0,49);
+//$r->ltrim('recivepost:'.$user['userid'],0,49);
 /*$newpost = $r->sort('recivepost:'.$user['userid'],array('sort'=>'desc','get'=>'post:postid:*:content'));
 */
 
 $star = $r->smembers('following:'.$user['userid']);
+
+
+
 $star[] = $user['userid'];
 
+
 $lastpull = $r->get('lastpull:userid:'.$user['userid']);
+
+
+
 if (!$lastpull) {
     $lastpull = 0;
 }
 
+
+
 //拉取最新数据
+
+
 
 $latest = array();
 
@@ -34,14 +45,18 @@ foreach ($star as $key => $value) {
     $latest = array_merge($latest,$r->zrangebyscore('starpost:userid:'.$value,$lastpull+1,1<<32-1));
 }
 
+
+
 //更新$latest
 if ($latest) {
     $r->set('lastpull:userid:'.$user['userid'],end($latest));    
 }
 
 
-
 sort($latest,SORT_NUMERIC);
+
+
+
 
 foreach ($latest as $key => $value) {
     $r->lpush('recivepost:'.$user['userid'],$value);

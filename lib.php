@@ -16,7 +16,8 @@ function connredis(){
 }
 
 function isLogin(){
-  if(!$_COOKIE['userid'] || !$_COOKIE['username']){
+
+  if(!isset($_COOKIE['userid']) || !$_COOKIE['username']){
     return false;
   }  
   

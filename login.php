@@ -18,6 +18,8 @@ if(!$username || !$password){
 $r = connredis();
 $userid = $r->get('user:username:'.$username.':userid');
 
+
+
 if(!$userid){
   exit('用户名不存在');
 }
